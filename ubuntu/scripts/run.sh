@@ -60,12 +60,6 @@ export LOCALE_LANG='en_US'
 # Server timezone
 export TIMEZONE='Asia/Jakarta'
 
-## Partition Config
-## ------------------------------------
-
-# vartmpfile.bin size for mounting /var/tmp
-export VARTMP_FILE_SIZE='2G'
-
 ## Sudoers Config
 ## ------------------------------------
 
