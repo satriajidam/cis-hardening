@@ -352,6 +352,7 @@ success_msg 'Locale configured!'
 #######################
 
 # Initial setup
-run 1-1_filesystems.sh
-run 1-2_software-updates.sh
-run 1-3_aide.sh
+run filesystems.sh
+run software-updates.sh
+run aide.sh
+run bootloader.sh
