@@ -331,7 +331,7 @@ export -f run
 ### CONFIGURE SHELL LANGUAGE ###
 ################################
 
-begin_msg "Configuring locale..."
+begin_msg 'Configuring locale...'
 
 # configure language in /etc/default/locale
 sed -i.bak -e '/^LANG=/d' -e '/^LANGUAGE=/d' -e '/^LC_ALL/d' /etc/default/locale
@@ -350,7 +350,7 @@ source /etc/environment
 
 locale
 
-success_msg "Locale configured!"
+success_msg 'Locale configured!'
 
 
 #######################
@@ -358,4 +358,4 @@ success_msg "Locale configured!"
 #######################
 
 # Initial setup
-1-1_filesystem-configuration.sh
+run 1-1_filesystem-configuration.sh
