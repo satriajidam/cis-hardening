@@ -1,7 +1,7 @@
 nodes = [
   {
-    hostname: 'test-host-01',
-    ip: '192.168.100.101',
+    hostname: 'test-ubuntu-01',
+    ip: '192.168.10.11',
     ram: 1024,
     box: 'ubuntu/xenial64'
   }
