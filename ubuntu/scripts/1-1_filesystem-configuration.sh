@@ -17,7 +17,8 @@ if [ "$(id -u)" != '0' ]; then
   exit $?
 fi
 
-begin_msg 'Disable unused file systems...'
+
+begin_msg 'Disabling unused file systems...'
 
 # list of filesystems to disable
 declare -a filesystems=(
@@ -51,9 +52,6 @@ for filesystem in ${filesystems[@]}; do
   # ref: https://github.com/OpenSCAP/scap-security-guide/issues/539
   append_to_file -Fx "install $filesystem /bin/true" "$modprobe_conf"
 
-  # unload the filesystem module
-  rmmod "$filesystem"
-
   # add file system to blacklist.conf
   append_to_file -Fx "blacklist $filesystem" "$blacklist_conf"
 done
@@ -63,3 +61,21 @@ print_content "$modprobe_conf"
 print_content "$blacklist_conf"
 
 success_msg 'Unused file systems disabled!'
+
+
+begin_msg 'Securing shared memory...'
+
+# mount shared memory on tmpfs
+append_to_file -Fxi 'tmpfs /dev/shm tmpfs rw,nosuid,nodev,noexec,relatime,mode=1777 0 0' /etc/fstab
+append_to_file -Fxi 'tmpfs /run/shm tmpfs rw,nosuid,nodev,noexec,relatime,mode=1777 0 0' /etc/fstab
+
+success_msg 'Shared memory secured!'
+
+
+begin_msg 'Securing temporary directory...'
+
+# mount temporary directory on tmpfs
+append_to_file -Fxi 'tmpfs /tmp tmpfs rw,nosuid,nodev,noexec,relatime,mode=1777 0 0' /etc/fstab
+append_to_file -Fxi 'tmpfs /var/tmp tmpfs rw,nosuid,nodev,noexec,relatime,mode=1777 0 0' /etc/fstab
+
+success_msg 'Temporary directory secured!'
