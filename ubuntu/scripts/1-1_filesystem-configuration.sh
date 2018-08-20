@@ -52,7 +52,7 @@ for filesystem in ${filesystems[@]}; do
   append_to_file -Fx "install $filesystem /bin/true" "$modprobe_conf"
 
   # unload the filesystem module
-  rmod "$filesystem"
+  rmmod "$filesystem"
 
   # add file system to blacklist.conf
   append_to_file -Fx "blacklist $filesystem" "$blacklist_conf"
