@@ -1,0 +1,38 @@
+nodes = [
+  {
+    hostname: 'test-host-01',
+    ip: '192.168.100.101',
+    ram: 1024,
+    box: 'ubuntu/xenial64'
+  }
+]
+
+Vagrant.configure('2') do |config|
+  nodes.each do |node|
+    config.vm.define node[:hostname] do |host|
+      host.ssh.insert_key = false
+      host.ssh.private_key_path = ['./test_rsa', '~/.vagrant.d/insecure_private_key']
+
+      host.vm.box = node[:box]
+      host.vm.box_check_update = true
+      host.vm.hostname = node[:hostname]
+      host.vm.network :private_network, ip: node[:ip], netmask: '255.255.255.0'
+      host.vm.provision 'shell', path: './vagrant-setup.sh'
+      host.vm.provision 'file', source: './', destination: '~/provisioner-kit'
+      host.vm.provision 'file', source: './test_rsa.pub', destination: '~/.ssh/authorized_keys'
+
+      memory ||= 512
+
+      host.vm.provider :virtualbox do |vb|
+        vb.name = node[:hostname]
+        vb.customize [
+          'modifyvm', :id,
+          '--memory', memory.to_s
+        ]
+      end
+    end
+
+    config.hostmanager.enabled = true
+    config.hostmanager.manage_guest = true
+  end
+end
