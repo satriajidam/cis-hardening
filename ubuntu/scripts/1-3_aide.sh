@@ -4,7 +4,6 @@
 # Script  : Setup Advanced Intrusion Detection Environment (AIDE).
 # OSs     : - Ubuntu 16.04
 # Authors : - Agastyo Satriaji Idam (play.satriajidam@gmail.com)
-#           - Nashihun Amien (nashihunamien@gmail.com)
 ########################################################################
 
 set -o errexit # make script exits when a command fails

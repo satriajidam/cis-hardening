@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ########################################################################
-# Script  : Software updates configuration
+# Script  : Software updates configuration.
 # OSs     : - Ubuntu 16.04
 # Authors : - Agastyo Satriaji Idam (play.satriajidam@gmail.com)
 ########################################################################

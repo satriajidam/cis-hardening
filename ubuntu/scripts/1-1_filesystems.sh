@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ########################################################################
-# Script  : Filesystems configuration
+# Script  : Filesystems configuration.
 # OSs     : - Ubuntu 16.04
 # Authors : - Agastyo Satriaji Idam (play.satriajidam@gmail.com)
 ########################################################################
