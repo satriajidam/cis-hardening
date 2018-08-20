@@ -66,18 +66,6 @@ export TIMEZONE='Asia/Jakarta'
 # vartmpfile.bin size for mounting /var/tmp
 export VARTMP_FILE_SIZE='2G'
 
-## /etc/modprobe.d Config
-## ------------------------------------
-
-# Disablemnt file name in /etc/modprobe.d
-export DISABLEMNT_FILE='disablemnt.conf'
-
-# Disablenet file name in /etc/modprobe.d
-export DISABLENET_FILE='disablenet.conf'
-
-# Disablemod file name in /etc/modprobe.d
-export DISABLEMOD_FILE='disablemod.conf'
-
 ## Sudoers Config
 ## ------------------------------------
 
@@ -369,30 +357,5 @@ success_msg "Locale configured!"
 ### EXECUTE SCRIPTS ###
 #######################
 
-run systemd.sh
-run journalctl.sh
-run update.sh
-run packages.sh
-run firewall.sh
-run ntp.sh
-run fstab.sh
-run disable_mnt.sh
-run disable_net.sh
-run disable_mod.sh
-run logindefs.sh
-run sysctl.sh
-run limits.sh
-run useradd.sh
-run nospoof.sh
-run rootaccess.sh
-run rkhunter.sh
-run sudoers.sh
-run sshd.sh
-run hosts.sh
-run aide.sh
-# run pam.sh
-run cron.sh
-run ctrl_alt_del.sh
-run auditd.sh
-run bashrc.sh
-run clean_up.sh
+# Initial setup
+1-1_filesystem-configuration.sh
