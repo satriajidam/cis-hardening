@@ -69,6 +69,8 @@ begin_msg 'Securing shared memory...'
 append_to_file -Fxi 'tmpfs /dev/shm tmpfs rw,nosuid,nodev,noexec,relatime,mode=1777 0 0' /etc/fstab
 append_to_file -Fxi 'tmpfs /run/shm tmpfs rw,nosuid,nodev,noexec,relatime,mode=1777 0 0' /etc/fstab
 
+print_content '/etc/fstab'
+
 success_msg 'Shared memory secured!'
 
 
@@ -77,5 +79,7 @@ begin_msg 'Securing temporary directory...'
 # mount temporary directory on tmpfs
 append_to_file -Fxi 'tmpfs /tmp tmpfs rw,nosuid,nodev,noexec,relatime,mode=1777 0 0' /etc/fstab
 append_to_file -Fxi 'tmpfs /var/tmp tmpfs rw,nosuid,nodev,noexec,relatime,mode=1777 0 0' /etc/fstab
+
+print_content '/etc/fstab'
 
 success_msg 'Temporary directory secured!'
