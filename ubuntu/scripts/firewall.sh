@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 
 ########################################################################
-# Script  : Configure Ubuntu Firewall.
+# Script  : Setup Uncomplicated Firewall.
 # OSs     : - Ubuntu 16.04
 # Authors : - Agastyo Satriaji Idam (play.satriajidam@gmail.com)
-#           - Nashihun Amien (nashihunamien@gmail.com)
 ########################################################################
 
 set -o errexit # make script exits when a command fails
@@ -18,18 +17,18 @@ if [ "$(id -u)" != "0" ]; then
   exit $?
 fi
 
-begin_msg "Enabling Ubuntu Firewall..."
+begin_msg 'Enabling Uncomplicated Firewall...'
 
 ufw --force reset
 ufw --force enable
 
-success_msg "Ubuntu Firewall enabled!"
+success_msg 'Uncomplicated Firewall enabled!'
 
-begin_msg "Configuring Ubuntu Firewall..."
+begin_msg 'Configuring Uncomplicated Firewall...'
 
 configure_firewall
 
-systemctl status ufw.service --no-pager
+systemctl status ufw --no-pager
 ufw status verbose
 
-success_msg "Ubuntu Firewall configured!"
+success_msg 'Uncomplicated Firewall configured!'
