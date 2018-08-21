@@ -347,4 +347,6 @@ run apparmor.sh
 run sshd.sh
 run ntp.sh
 run network-protocols.sh
+run firewall.sh
+run auditd.sh
 run cleanup.sh
