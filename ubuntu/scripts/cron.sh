@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 
 ########################################################################
-# Script  : Configure at/cron.
+# Script  : Configure cron.
 # OSs     : - Ubuntu 16.04
 # Authors : - Agastyo Satriaji Idam (play.satriajidam@gmail.com)
-#           - Nashihun Amien (nashihunamien@gmail.com)
 ########################################################################
 
 set -o errexit # make script exits when a command fails
@@ -18,7 +17,7 @@ if [ "$(id -u)" != "0" ]; then
   exit $?
 fi
 
-begin_msg "Configuring at/cron..."
+begin_msg 'Configuring cron...'
 
 rm -f /etc/cron.deny
 rm -f /etc/at.deny
@@ -32,9 +31,9 @@ chmod -v og-rwx /etc/cron*
 chown -v root:root /etc/at*
 chmod -v og-rwx /etc/at*
 
-sed -i.bak 's/^#cron./cron./' /etc/rsyslog.d/50-default.conf
+success_msg 'Cron configured!'
 
-print_content "/etc/rsyslog.d/50-default.conf"
+begin_msg 'Enabling cron...'
 
 systemctl daemon-reload
 
@@ -46,4 +45,4 @@ systemctl enable atd
 systemctl restart atd
 systemctl status atd --no-pager
 
-success_msg "at/cron configured!"
+success_msg 'Cron enabled!'
