@@ -17,7 +17,7 @@ if [ "$(id -u)" != '0' ]; then
   exit $?
 fi
 
-begin_msg 'Disabling unused file systems...'
+begin_msg 'Disabling unused filesystems...'
 
 # list of filesystems to disable
 declare -a filesystems=(
@@ -30,30 +30,30 @@ declare -a filesystems=(
 )
 
 # create config file
-[ -f /etc/modprobe.d/CIS.conf ] || touch /etc/modprobe.d/CIS.conf
+[ -f /etc/modprobe.d/CIS-filesystems.conf ] || touch /etc/modprobe.d/CIS-filesystems.conf
 
-# add title for the blacklisted file systems
-grep -Fx '# Unused file systems' /etc/modprobe.d/blacklist.conf > /dev/null 2>&1 && err=$? || err=$?
+# add title for the blacklisted filesystems
+grep -Fx '# Unused filesystems' /etc/modprobe.d/blacklist.conf > /dev/null 2>&1 && err=$? || err=$?
 if [ $err -ne 0 ]; then
   echo '' >> /etc/modprobe.d/blacklist.conf
-  echo '# Unused file systems' >> /etc/modprobe.d/blacklist.conf
+  echo '# Unused filesystems' >> /etc/modprobe.d/blacklist.conf
 fi
 
 for filesystem in ${filesystems[@]}; do
   # disable the filesystem
   # prefer using /bin/true vs /bin/false
   # ref: https://github.com/OpenSCAP/scap-security-guide/issues/539
-  append_to_file -Fx "install $filesystem /bin/true" /etc/modprobe.d/CIS.conf
+  append_to_file -Fx "install $filesystem /bin/true" /etc/modprobe.d/CIS-filesystems.conf
 
   # add file system to blacklist.conf
   append_to_file -Fx "blacklist $filesystem" /etc/modprobe.d/blacklist.conf
 done
 
-print_content '/etc/modprobe.d/CIS.conf'
+print_content '/etc/modprobe.d/CIS-filesystems.conf'
 
 print_content '/etc/modprobe.d/blacklist.conf'
 
-success_msg 'Unused file systems disabled!'
+success_msg 'Unused filesystems disabled!'
 
 begin_msg 'Securing shared memory...'
 
