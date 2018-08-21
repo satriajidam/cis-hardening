@@ -21,7 +21,6 @@ begin_msg 'Removing unnecessary packages...'
 
 apt-get purge -y \
   avahi* \
-  cups* \
   popularity-contest \
   rsh* \
   talk* \
