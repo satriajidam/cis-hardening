@@ -350,5 +350,6 @@ run network-protocols.sh
 run firewall.sh
 run rsyslog.sh
 run logrotate.sh
+run cron.sh
 run auditd.sh
 run cleanup.sh
