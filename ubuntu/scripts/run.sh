@@ -345,4 +345,5 @@ run sysctl.sh
 run packages.sh
 run apparmor.sh
 run sshd.sh
+run ntp.sh
 run cleanup.sh
