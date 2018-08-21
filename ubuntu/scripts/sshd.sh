@@ -68,8 +68,8 @@ if [ -n "$DENIED_SSH_USERS" ]; then
   append_to_file -Fx "DenyUsers $DENIED_SSH_USERS" /etc/ssh/sshd_config
 fi
 
-chown root:root /etc/ssh/sshd_config
-chmod og-rwx /etc/ssh/sshd_config
+chown -v root:root /etc/ssh/sshd_config
+chmod -v og-rwx /etc/ssh/sshd_config
 
 print_content '/etc/ssh/sshd_config'
 

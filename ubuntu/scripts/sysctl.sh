@@ -22,7 +22,7 @@ begin_msg 'Configuring sysctl...'
 cp -vf /etc/sysctl.conf /etc/sysctl.conf.bak
 cp -vf $(get_config_dir)/sysctl.conf /etc/sysctl.conf
 
-chmod 0600 /etc/sysctl.conf
+chmod -v 0600 /etc/sysctl.conf
 
 print_content "/etc/sysctl.conf"
 

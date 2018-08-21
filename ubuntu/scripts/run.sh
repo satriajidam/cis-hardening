@@ -336,7 +336,6 @@ success_msg 'Locale configured!'
 ### EXECUTE SCRIPTS ###
 #######################
 
-# Initial setup
 run filesystems.sh
 run software-updates.sh
 run aide.sh

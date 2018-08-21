@@ -19,8 +19,8 @@ fi
 
 begin_msg 'Securing bootloader config...'
 
-chown root:root /boot/grub/grub.cfg
-chmod og-rwx /boot/grub/grub.cfg
+chown -v root:root /boot/grub/grub.cfg
+chmod -v og-rwx /boot/grub/grub.cfg
 
 success_msg 'Bootloader config secured!'
 
