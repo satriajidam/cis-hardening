@@ -60,21 +60,6 @@ export LOCALE_LANG='en_US'
 # Server timezone
 export TIMEZONE='Asia/Jakarta'
 
-## Sudoers Config
-## ------------------------------------
-
-# Sudoers group name
-export SUDOERS_GROUP='devops-sudoers'
-
-# Sudoers file name in /etc/sudoers.d
-export SUDOERS_FILE='devops_sudoers'
-
-# Sudoers master username
-export SUDOERS_USERNAME='devops'
-
-# Sudoers master password
-export SUDOERS_PASSWORD='WVCvpAcJaEYJdnRCaQTXbCGM54BFhc'
-
 ## /etc/login.defs Config
 ## ------------------------------------
 
@@ -94,7 +79,7 @@ export PASS_WARN_AGE=7
 export SSH_PORT='22'
 
 # List of allowed groups to perform SSH login (separated by space)
-export ALLOWED_SSH_GROUPS="$SUDOERS_GROUP"
+export ALLOWED_SSH_GROUPS=
 
 # List of allowed users to perform SSH login (separated by space)
 export ALLOWED_SSH_USERS=
@@ -360,3 +345,4 @@ run coredumps.sh
 run sysctl.sh
 run packages.sh
 run apparmor.sh
+run sshd.sh

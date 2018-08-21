@@ -4,7 +4,6 @@
 # Script  : Configure SSH daemon.
 # OSs     : - Ubuntu 16.04
 # Authors : - Agastyo Satriaji Idam (play.satriajidam@gmail.com)
-#           - Nashihun Amien (nashihunamien@gmail.com)
 ########################################################################
 
 set -o errexit # make script exits when a command fails
@@ -20,26 +19,29 @@ fi
 
 # ref: https://michael.mckinnon.id.au/2017/03/26/hardening-ssh-on-your-ubuntu-server/
 
-begin_msg "Configure SSH moduli..."
+begin_msg 'Configure SSH moduli...'
 
 cp -vf /etc/ssh/moduli /etc/ssh/moduli.bak
 awk '$5 >= 2047' /etc/ssh/moduli > /etc/ssh/moduli.tmp
 mv /etc/ssh/moduli.tmp /etc/ssh/moduli
 
-print_content "/etc/ssh/moduli"
+print_content '/etc/ssh/moduli'
 
-success_msg "SSH moduli configured!"
+success_msg 'SSH moduli configured!'
 
-begin_msg "Adding SSH login banner..."
+begin_msg 'Adding SSH login banner...'
 
 cp -vf /etc/issue.net /etc/issue.net.bak
 cp -vf $(get_config_dir)/issue.net /etc/issue.net
 
-print_content "/etc/issue.net"
+chown root:root /etc/issue.net
+chmod 644 /etc/issue.net
 
-success_msg "SSH login banner added!"
+print_content '/etc/issue.net'
 
-begin_msg "Configuring SSH daemon..."
+success_msg 'SSH login banner added!'
+
+begin_msg 'Configuring SSH daemon...'
 
 cp -vf /etc/ssh/sshd_config /etc/ssh/sshd_config.bak
 cp -vf $(get_config_dir)/sshd_config /etc/ssh/sshd_config
@@ -69,7 +71,7 @@ fi
 chown root:root /etc/ssh/sshd_config
 chmod og-rwx /etc/ssh/sshd_config
 
-print_content "/etc/ssh/sshd_config"
+print_content '/etc/ssh/sshd_config'
 
 # enable ssh to start on boot
 systemctl enable ssh
@@ -77,4 +79,4 @@ systemctl reload ssh
 systemctl restart ssh
 systemctl status ssh --no-pager
 
-success_msg "SSH daemon configured!"
+success_msg 'SSH daemon configured!'
