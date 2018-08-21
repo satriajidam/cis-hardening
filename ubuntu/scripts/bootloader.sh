@@ -23,3 +23,13 @@ chown root:root /boot/grub/grub.cfg
 chmod og-rwx /boot/grub/grub.cfg
 
 success_msg 'Bootloader config secured!'
+
+begin_msg 'Configuring bootloader...'
+
+sed -i.bak -r 's/ ?apparmor=0 ?//g' /etc/default/grub
+
+print_content '/etc/default/grub'
+
+update-grub
+
+success_msg 'Bootloader configured!'
