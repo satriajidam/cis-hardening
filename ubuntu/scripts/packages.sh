@@ -21,15 +21,18 @@ begin_msg 'Removing unnecessary packages...'
 
 apt-get purge -y \
   avahi* \
-  beep \
+  cups* \
   popularity-contest \
   rsh* \
   talk* \
   telnet* \
   tftp* \
+  xserver-xorg* \
   yp-tools \
   xinetd \
   openbsd-inetd \
-  prelink
+  prelink \
+  beep \
+  nis
 
 success_msg 'Unnecessary packages removed!'
