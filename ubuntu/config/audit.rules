@@ -15,50 +15,47 @@
 -f 2
 
 # Audit the audit logs
--w /var/log/audit/ -k auditlog
+-w /var/log/audit/ -k audit-log
 
 # Auditd configuration
--w /etc/audit/ -p wa -k auditconfig
--w /etc/libaudit.conf -p wa -k auditconfig
--w /etc/audisp/ -p wa -k audispconfig
+-w /etc/audit/ -p wa -k audit-config
+-w /etc/libaudit.conf -p wa -k audit-config
+-w /etc/audisp/ -p wa -k audit-config
 
 # Monitor for use of audit management tools
--w /sbin/auditctl -p x -k audittools
--w /sbin/auditd -p x -k audittools
-
-# Monitor AppArmor configuration changes
--w /etc/apparmor/ -p wa -k apparmor
--w /etc/apparmor.d/ -p wa -k apparmor
+-w /sbin/auditctl -p x -k audit-tools
+-w /sbin/auditd -p x -k audit-tools
 
 # Monitor usage of AppArmor tools
--w /sbin/apparmor_parser -p x -k apparmor_tools
--w /usr/sbin/aa-complain -p x -k apparmor_tools
--w /usr/sbin/aa-disable -p x -k apparmor_tools
--w /usr/sbin/aa-enforce -p x -k apparmor_tools
+-w /sbin/apparmor_parser -p x -k apparmor-tools
+-w /usr/sbin/aa-complain -p x -k apparmor-tools
+-w /usr/sbin/aa-disable -p x -k apparmor-tools
+-w /usr/sbin/aa-enforce -p x -k apparmor-tools
 
 # Monitor Systemd configuration changes
 -w /etc/systemd/ -p wa -k systemd
 -w /lib/systemd/ -p wa -k systemd
 
 # Monitor usage of systemd tools
--w /bin/systemctl -p x -k systemd_tools
--w /bin/journalctl -p x -k systemd_tools
+-w /bin/systemctl -p x -k systemd-tools
+-w /bin/journalctl -p x -k systemd-tools
 
 # Special files
--a always,exit -F arch=b64 -S mknod -S mknodat -k specialfiles
--a always,exit -F arch=b32 -S mknod -S mknodat -k specialfiles
+-a always,exit -F arch=b64 -S mknod -S mknodat -k special_files
+-a always,exit -F arch=b32 -S mknod -S mknodat -k special_files
 
 # Mount operations
--a always,exit -F arch=b64 -S mount -F auid>=1000 -F auid!=4294967295 -F key=export
--a always,exit -F arch=b32 -S mount -F auid>=1000 -F auid!=4294967295 -F key=export
+-a always,exit -F arch=b64 -S mount -F auid>=1000 -F auid!=4294967295 -F key=mounts
+-a always,exit -F arch=b32 -S mount -F auid>=1000 -F auid!=4294967295 -F key=mounts
 
 # Changes to the time
--a always,exit -F arch=b64 -S settimeofday -k audit_time_rules
--a always,exit -F arch=b64 -S adjtimex -k audit_time_rules
--a always,exit -F arch=b64 -S clock_settime -k audit_time_rules
--a always,exit -F arch=b32 -S settimeofday -k audit_time_rules
--a always,exit -F arch=b32 -S adjtimex -k audit_time_rules
--a always,exit -F arch=b32 -S clock_settime -k audit_time_rules
+-w /etc/localtime -p wa -k time-change
+-a always,exit -F arch=b64 -S settimeofday -k time-change
+-a always,exit -F arch=b64 -S adjtimex -k time-change
+-a always,exit -F arch=b64 -S clock_settime -k time-change
+-a always,exit -F arch=b32 -S settimeofday -k time-change
+-a always,exit -F arch=b32 -S adjtimex -k time-change
+-a always,exit -F arch=b32 -S clock_settime -k time-change
 
 # Cron configuration & scheduled jobs
 -w /etc/cron.allow -p wa -k cron
@@ -72,14 +69,17 @@
 -w /var/spool/cron/crontabs/ -k cron
 
 # User, group, password databases
--w /etc/group -p wa -k audit_rules_usergroup_modification
--w /etc/passwd -p wa -k audit_rules_usergroup_modification
--w /etc/gshadow -p wa -k audit_rules_usergroup_modification
--w /etc/shadow -p wa -k audit_rules_usergroup_modification
--w /etc/security/opasswd -p wa -k audit_rules_usergroup_modification
+-w /etc/group -p wa -k identity
+-w /etc/passwd -p wa -k identity
+-w /etc/gshadow -p wa -k identity
+-w /etc/shadow -p wa -k identity
+-w /etc/security/opasswd -p wa -k identity
 
 # MAC-policy
 -w /etc/selinux/ -p wa -k MAC-policy
+-w /usr/share/selinux/ -p wa -k MAC-policy
+-w /etc/apparmor/ -p wa -k MAC-policy
+-w /etc/apparmor.d/ -p wa -k MAC-policy
 
 # Monitor usage of passwd
 -w /usr/bin/passwd -p x -k passwd_modification
@@ -101,17 +101,16 @@
 -w /usr/sbin/modprobe -p x -k modules
 
 # Login configuration and information
--w /etc/login.defs -p wa -k login
--w /etc/securetty -p wa -k login
--w /var/log/faillog -p wa -k login
--w /var/run/faillock/ -p wa -k logins
--w /var/log/lastlog -p wa -k login
--w /var/log/tallylog -p wa -k login
+-w /etc/login.defs -p wa -k logins
+-w /etc/securetty -p wa -k logins
+-w /var/log/faillog -p wa -k logins
+-w /var/log/lastlog -p wa -k logins
+-w /var/log/tallylog -p wa -k logins
+-w /var/log/wtmp -p wa -k logins
+-w /var/log/btmp -p wa -k logins
 
-# Network configuration
--w /etc/hosts -p wa -k audit_rules_networkconfig_modification
--w /etc/network/ -p wa -k audit_rules_networkconfig_modification
--w /etc/sysconfig/network -p wa -k audit_rules_networkconfig_modification
+# Login session
+-w /var/run/utmp -p wa -k session
 
 # System startup scripts
 -w /etc/inittab -p wa -k init
@@ -125,7 +124,7 @@
 -w /etc/localtime -p wa -k localtime
 
 # Time zone configuration
--w /etc/timezone -p wa -k audit_time_ruleszone
+-w /etc/timezone -p wa -k timezone
 
 # Kernel parameters
 -w /etc/sysctl.conf -p wa -k sysctl
@@ -168,12 +167,17 @@
 -w /etc/ssh/sshd_config -k sshd
 
 # Changes to hostname
--a always,exit -F arch=b64 -S sethostname -S setdomainname -k audit_rules_networkconfig_modification
--a always,exit -F arch=b32 -S sethostname -S setdomainname -k audit_rules_networkconfig_modification
+-a always,exit -F arch=b64 -S sethostname -S setdomainname -k system-locale
+-a always,exit -F arch=b32 -S sethostname -S setdomainname -k system-locale
 
 # Changes to issue
--w /etc/issue -p wa -k audit_rules_networkconfig_modification
--w /etc/issue.net -p wa -k audit_rules_networkconfig_modification
+-w /etc/issue -p wa -k system-locale
+-w /etc/issue.net -p wa -k system-locale
+
+# Change to network configuration
+-w /etc/hosts -p wa -k system-locale
+-w /etc/network/ -p wa -k system-locale
+-w /etc/sysconfig/network -p wa -k system-locale
 
 # Capture all unauthorized file accesses
 -a always,exit -F arch=b64 -S creat -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=access
@@ -224,10 +228,13 @@
 -a exit,always -F arch=b32 -S open -F dir=/tmp -F success=0 -k access
 
 # Monitor for use of process ID change (switching accounts) applications
--w /bin/su -p x -k actions
--w /usr/bin/sudo -p x -k actions
--w /etc/sudoers -p wa -k actions
--w /etc/sudoers.d -p wa -k actions
+-w /bin/su -p x -k scope
+-w /usr/bin/sudo -p x -k scope
+-w /etc/sudoers -p wa -k scope
+-w /etc/sudoers.d -p wa -k scope
+
+# Monitor system administrator actions
+-w /var/log/sudo.log -p wa -k actions
 
 # Monitor usage of commands to change power state
 -w /sbin/shutdown -p x -k power
