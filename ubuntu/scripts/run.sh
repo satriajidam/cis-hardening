@@ -346,4 +346,5 @@ run packages.sh
 run apparmor.sh
 run sshd.sh
 run ntp.sh
+run network-protocols.sh
 run cleanup.sh
