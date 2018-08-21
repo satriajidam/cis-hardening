@@ -18,6 +18,9 @@ if [ "$(id -u)" != "0" ]; then
   exit $?
 fi
 
+# clean up
+apt-get clean -q
+rm -rf /tmp/* /var/tmp/*
 
 # run rkhunter check
 if [ $RKHUNTER_ON_DONE -eq 1 ]; then

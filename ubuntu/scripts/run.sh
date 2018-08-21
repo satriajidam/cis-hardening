@@ -346,3 +346,4 @@ run sysctl.sh
 run packages.sh
 run apparmor.sh
 run sshd.sh
+run cleanup.sh
