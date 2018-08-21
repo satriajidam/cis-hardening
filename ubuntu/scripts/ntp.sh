@@ -4,7 +4,6 @@
 # Script  : Configure NTP.
 # OSs     : - Ubuntu 16.04
 # Authors : - Agastyo Satriaji Idam (play.satriajidam@gmail.com)
-#           - Nashihun Amien (nashihunamien@gmail.com)
 ########################################################################
 
 set -o errexit # make script exits when a command fails
@@ -18,28 +17,25 @@ if [ "$(id -u)" != "0" ]; then
   exit $?
 fi
 
-begin_msg "Configuring NTP..."
+begin_msg 'Installing NTP...'
+apt-get install -y ntp
+success_msg 'NTP installed!'
+
+begin_msg 'Configuring NTP...'
 
 # set timezone
 timedatectl set-timezone $TIMEZONE
 timedatectl status
 
-# install ntp
-apt-get install -y ntp
-
 # configure ntp
 cp -vf /etc/ntp.conf /etc/ntp.conf.bak
 cp -vf $(get_config_dir)/ntp.conf /etc/ntp.conf
 
-print_content "/etc/ntp.conf"
+print_content '/etc/ntp.conf'
 
 # enable ntp to start on boot
 systemctl enable ntp
 systemctl restart ntp
 systemctl status ntp --no-pager
 
-# clean up
-apt-get clean
-rm -rf /tmp/* /var/tmp/*
-
-success_msg "NTP configured!"
+success_msg 'NTP configured!'
