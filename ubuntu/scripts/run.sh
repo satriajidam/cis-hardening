@@ -79,7 +79,7 @@ export PASS_WARN_AGE=7
 export SSH_PORT='22'
 
 # List of allowed groups to perform SSH login (separated by space)
-export ALLOWED_SSH_GROUPS=
+export ALLOWED_SSH_GROUPS='vagrant'
 
 # List of allowed users to perform SSH login (separated by space)
 export ALLOWED_SSH_USERS=
@@ -349,5 +349,6 @@ run ntp.sh
 run network-protocols.sh
 run firewall.sh
 run rsyslog.sh
+run logfiles.sh
 run auditd.sh
 run cleanup.sh
