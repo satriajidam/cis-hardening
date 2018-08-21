@@ -358,3 +358,5 @@ run aide.sh
 run bootloader.sh
 run coredumps.sh
 run sysctl.sh
+run packages.sh
+run apparmor.sh
