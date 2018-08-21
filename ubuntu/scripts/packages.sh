@@ -29,6 +29,7 @@ apt-get purge -y \
   tftp* \
   yp-tools \
   xinetd \
+  openbsd-inetd \
   prelink
 
 success_msg 'Unnecessary packages removed!'
