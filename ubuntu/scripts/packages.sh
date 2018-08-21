@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 
 ########################################################################
-# Script  : Install required basic packages.
+# Script  : Install required packages & remove unneeded ones.
 # OSs     : - Ubuntu 16.04
 # Authors : - Agastyo Satriaji Idam (play.satriajidam@gmail.com)
-#           - Nashihun Amien (nashihunamien@gmail.com)
 ########################################################################
 
 set -o errexit # make script exits when a command fails
@@ -18,8 +17,18 @@ if [ "$(id -u)" != "0" ]; then
   exit $?
 fi
 
-begin_msg "Removing unnecessary packages..."
+begin_msg 'Removing unnecessary packages...'
 
-apt-get purge -y avahi* beep popularity-contest rsh* talk* telnet* tftp* yp-tools xinetd
+apt-get purge -y \
+  avahi* \
+  beep \
+  popularity-contest \
+  rsh* \
+  talk* \
+  telnet* \
+  tftp* \
+  yp-tools \
+  xinetd \
+  prelink
 
-success_msg "Unnecessary pacakges removed!"
+success_msg 'Unnecessary packages removed!'
