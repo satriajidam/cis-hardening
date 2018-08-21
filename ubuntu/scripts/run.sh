@@ -356,3 +356,5 @@ run filesystems.sh
 run software-updates.sh
 run aide.sh
 run bootloader.sh
+run coredumps.sh
+run sysctl.sh

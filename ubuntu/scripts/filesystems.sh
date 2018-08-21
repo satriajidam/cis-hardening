@@ -17,10 +17,6 @@ if [ "$(id -u)" != '0' ]; then
   exit $?
 fi
 
-cis_path='/etc/modprobe.d/CIS.conf'
-blacklist_path='/etc/modprobe.d/blacklist.conf'
-fstab_path='/etc/fstab'
-
 begin_msg 'Disabling unused file systems...'
 
 # list of filesystems to disable
@@ -34,47 +30,47 @@ declare -a filesystems=(
 )
 
 # create config file
-[ -f "$cis_path" ] || touch "$cis_path"
+[ -f /etc/modprobe.d/CIS.conf ] || touch /etc/modprobe.d/CIS.conf
 
 # add title for the blacklisted file systems
-grep -Fx '# Unused file systems' "$blacklist_path" > /dev/null 2>&1 && err=$? || err=$?
+grep -Fx '# Unused file systems' /etc/modprobe.d/blacklist.conf > /dev/null 2>&1 && err=$? || err=$?
 if [ $err -ne 0 ]; then
-  echo '' >> "$blacklist_path"
-  echo '# Unused file systems' >> "$blacklist_path"
+  echo '' >> /etc/modprobe.d/blacklist.conf
+  echo '# Unused file systems' >> /etc/modprobe.d/blacklist.conf
 fi
 
 for filesystem in ${filesystems[@]}; do
   # disable the filesystem
   # prefer using /bin/true vs /bin/false
   # ref: https://github.com/OpenSCAP/scap-security-guide/issues/539
-  append_to_file -Fx "install $filesystem /bin/true" "$cis_path"
+  append_to_file -Fx "install $filesystem /bin/true" /etc/modprobe.d/CIS.conf
 
   # add file system to blacklist.conf
-  append_to_file -Fx "blacklist $filesystem" "$blacklist_path"
+  append_to_file -Fx "blacklist $filesystem" /etc/modprobe.d/blacklist.conf
 done
 
-print_content "$cis_path"
+print_content '/etc/modprobe.d/CIS.conf'
 
-print_content "$blacklist_path"
+print_content '/etc/modprobe.d/blacklist.conf'
 
 success_msg 'Unused file systems disabled!'
 
 begin_msg 'Securing shared memory...'
 
 # mount shared memory on tmpfs
-append_to_file -Fxi 'tmpfs /dev/shm tmpfs rw,nosuid,nodev,noexec,relatime,mode=1777 0 0' "$fstab_path"
-append_to_file -Fxi 'tmpfs /run/shm tmpfs rw,nosuid,nodev,noexec,relatime,mode=1777 0 0' "$fstab_path"
+append_to_file -Fxi 'tmpfs /dev/shm tmpfs rw,nosuid,nodev,noexec,relatime,mode=1777 0 0' /etc/fstab
+append_to_file -Fxi 'tmpfs /run/shm tmpfs rw,nosuid,nodev,noexec,relatime,mode=1777 0 0' /etc/fstab
 
-print_content "$fstab_path"
+print_content '/etc/fstab'
 
 success_msg 'Shared memory secured!'
 
 begin_msg 'Securing temporary directory...'
 
 # mount temporary directory on tmpfs
-append_to_file -Fxi 'tmpfs /tmp tmpfs rw,nosuid,nodev,noexec,relatime,mode=1777 0 0' "$fstab_path"
-append_to_file -Fxi 'tmpfs /var/tmp tmpfs rw,nosuid,nodev,noexec,relatime,mode=1777 0 0' "$fstab_path"
+append_to_file -Fxi 'tmpfs /tmp tmpfs rw,nosuid,nodev,noexec,relatime,mode=1777 0 0' /etc/fstab
+append_to_file -Fxi 'tmpfs /var/tmp tmpfs rw,nosuid,nodev,noexec,relatime,mode=1777 0 0' /etc/fstab
 
-print_content "$fstab_path"
+print_content '/etc/fstab'
 
 success_msg 'Temporary directory secured!'

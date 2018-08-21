@@ -18,7 +18,7 @@ if [ "$(id -u)" != "0" ]; then
   exit $?
 fi
 
-begin_msg "Configuring sysctl..."
+begin_msg 'Configuring sysctl...'
 
 cp -vf /etc/sysctl.conf /etc/sysctl.conf.bak
 cp -vf $(get_config_dir)/sysctl.conf /etc/sysctl.conf

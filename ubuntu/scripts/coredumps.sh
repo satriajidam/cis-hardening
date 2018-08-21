@@ -17,15 +17,13 @@ if [ "$(id -u)" != "0" ]; then
   exit $?
 fi
 
-limits_path='/etc/security/limits.conf'
-
 begin_msg 'Disabling coredumps...'
 
-sed -i.bak 's/^# End of file*//' "$limits_path"
+sed -i.bak 's/^# End of file*//' /etc/security/limits.conf
 
-append_to_file -Fx '* hard core 0' "$limits_path"
-append_to_file -Fx '# End of file' "$limits_path"
+append_to_file -Fx '* hard core 0' /etc/security/limits.conf
+append_to_file -Fx '# End of file' /etc/security/limits.conf
 
-print_content "$limits_path"
+print_content '/etc/security/limits.conf'
 
 success_msg 'Coredumps disabled!'
