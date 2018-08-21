@@ -349,6 +349,6 @@ run ntp.sh
 run network-protocols.sh
 run firewall.sh
 run rsyslog.sh
-run logfiles.sh
+run logrotate.sh
 run auditd.sh
 run cleanup.sh
