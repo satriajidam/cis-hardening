@@ -17,7 +17,6 @@ if [ "$(id -u)" != '0' ]; then
   exit $?
 fi
 
-
 ubuntu_version="$(lsb_release -r | awk '{print $2}')"
 major_version="$(echo $ubuntu_version | awk -F. '{print $1}')"
 

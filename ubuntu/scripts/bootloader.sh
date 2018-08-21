@@ -17,7 +17,6 @@ if [ "$(id -u)" != "0" ]; then
   exit $?
 fi
 
-
 begin_msg 'Securing bootloader config...'
 
 chown root:root /boot/grub/grub.cfg

@@ -29,7 +29,6 @@ apt-get install -y aide aide-common
 
 success_msg 'AIDE installed!'
 
-
 begin_msg 'Configuring AIDE...'
 
 grep -R -E '^!/var/lib/lxcfs/cgroup$' /etc/aide/* > /dev/null 2>&1 && err=$? || err=$?
@@ -45,7 +44,6 @@ fi
 aideinit --yes --force
 
 success_msg 'AIDE configured!'
-
 
 begin_msg 'Enabling daily AIDE check...'
 
