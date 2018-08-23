@@ -1,6 +1,6 @@
 nodes = [
   {
-    hostname: 'test-ubuntu-01',
+    hostname: 'test-ubuntu-aws-01',
     ip: '192.168.10.11',
     ram: 1024,
     box: 'ubuntu/xenial64'
