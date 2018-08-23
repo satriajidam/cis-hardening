@@ -90,33 +90,6 @@ export DENIED_SSH_GROUPS=
 # List of denied users to perform SSH login (separated by space)
 export DENIED_SSH_USERS=
 
-## PAM Config
-## ------------------------------------
-
-# Minimum acceptable size for the new password (plus one if
-# credits are not disabled which is the default). (See pam_cracklib manual.)
-# Cannot be set to lower value than 6.
-export PASSWORD_MINLEN='14'
-
-# The maximum credit for having digits in the new password. If less than 0
-# it is the minimum number of digits in the new password.
-export PASSWORD_DCREDIT='-1'
-
-# The maximum credit for having uppercase characters in the new password.
-# If less than 0 it is the minimum number of uppercase characters in the new
-# password.
-export PASSWORD_UCREDIT='-1'
-
-# The maximum credit for having lowercase characters in the new password.
-# If less than 0 it is the minimum number of lowercase characters in the new
-# password.
-export PASSWORD_LCREDIT='-1'
-
-# The maximum credit for having other characters in the new password.
-# If less than 0 it is the minimum number of other characters in the new
-# password.
-export PASSWORD_OCREDIT='-1'
-
 ## Audit Daemon Config
 ## ------------------------------------
 
