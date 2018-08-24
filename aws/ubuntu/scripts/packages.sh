@@ -41,9 +41,6 @@ begin_msg "Installing utility packages..."
 apt-get install -y \
   build-essential \
   ca-certificates \
-  debsums \
-  git \
-  python \
-  ruby
+  debsums
 
 success_msg "Utility packages installed!"
