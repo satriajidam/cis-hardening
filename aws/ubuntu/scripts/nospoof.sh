@@ -4,7 +4,6 @@
 # Script  : Prevent IP spoofing.
 # OSs     : - Ubuntu 16.04
 # Authors : - Agastyo Satriaji Idam (play.satriajidam@gmail.com)
-#           - Nashihun Amien (nashihunamien@gmail.com)
 ########################################################################
 
 set -o errexit # make script exits when a command fails
@@ -18,13 +17,13 @@ if [ "$(id -u)" != "0" ]; then
   exit $?
 fi
 
-begin_msg "Disabling IP spoofing..."
+begin_msg 'Disabling IP spoofing...'
 
 sed -i.bak -e '/order hosts,bind/d' -e '/multi on/d' /etc/host.conf
 
 append_to_file -Fx 'order bind,hosts' /etc/host.conf
 append_to_file -Fx 'nospoof on' /etc/host.conf
 
-print_content "/etc/host.conf"
+print_content '/etc/host.conf'
 
-success_msg "IP spoofing disabled!"
+success_msg 'IP spoofing disabled!'
