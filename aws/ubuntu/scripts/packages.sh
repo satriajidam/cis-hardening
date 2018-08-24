@@ -35,3 +35,15 @@ apt-get purge -y \
   nis
 
 success_msg 'Unnecessary packages removed!'
+
+begin_msg "Installing utility packages..."
+
+apt-get install -y \
+  build-essential \
+  ca-certificates \
+  debsums \
+  git \
+  python \
+  ruby
+
+success_msg "Utility packages installed!"
