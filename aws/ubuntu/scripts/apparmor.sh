@@ -27,7 +27,7 @@ success_msg 'AppArmor enabled!'
 
 begin_msg 'Installing AppArmor utilities...'
 
-apt-get install -y apparmor-utils
+apt-get install -y apparmor-profiles apparmor-utils
 
 success_msg 'AppArmor utilities installed!'
 
