@@ -41,6 +41,7 @@ begin_msg "Installing utility packages..."
 apt-get install -y \
   build-essential \
   ca-certificates \
-  debsums
+  debsums \
+  wget
 
 success_msg "Utility packages installed!"
