@@ -314,6 +314,7 @@ run software-updates.sh
 run aide.sh
 run bootloader.sh
 run coredumps.sh
+run nospoof.sh
 run sysctl.sh
 run packages.sh
 run apparmor.sh
@@ -324,5 +325,7 @@ run firewall.sh
 run rsyslog.sh
 run logrotate.sh
 run cron.sh
+run shell-profile.sh
+run system-files.sh
 run auditd.sh
 run cleanup.sh
