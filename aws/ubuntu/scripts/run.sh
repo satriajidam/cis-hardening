@@ -54,23 +54,14 @@ export ROOT_SOURCE="${BASH_SOURCE[0]}"
 # Locale preferred language
 export LOCALE_LANG='en_US'
 
-## NTP Config
-## ------------------------------------
-
 # Server timezone
 export TIMEZONE='Asia/Jakarta'
 
-## /etc/login.defs Config
+## Su Config
 ## ------------------------------------
 
-# Maximum number of days a password may be used
-export PASS_MAX_DAYS=99999
-
-# Minimum number of days allowed between password changes
-export PASS_MIN_DAYS=0
-
-# Number of days warning given before a password expires
-export PASS_WARN_AGE=7
+# Su group
+export SU_GROUP='vagrant'
 
 ## SSH Daemon Config
 ## ------------------------------------
@@ -79,7 +70,7 @@ export PASS_WARN_AGE=7
 export SSH_PORT='22'
 
 # List of allowed groups to perform SSH login (separated by space)
-export ALLOWED_SSH_GROUPS='vagrant'
+export ALLOWED_SSH_GROUPS="$SU_GROUP"
 
 # List of allowed users to perform SSH login (separated by space)
 export ALLOWED_SSH_USERS=
@@ -327,5 +318,7 @@ run logrotate.sh
 run cron.sh
 run shell-profile.sh
 run system-files.sh
+run su.sh
+run rkhunter.sh
 run auditd.sh
 run cleanup.sh
