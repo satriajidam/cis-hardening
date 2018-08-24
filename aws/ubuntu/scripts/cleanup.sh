@@ -22,16 +22,6 @@ fi
 apt-get clean -q
 rm -rf /tmp/* /var/tmp/*
 
-# run rkhunter check
-if [ $RKHUNTER_ON_DONE -eq 1 ]; then
-  # Rkhunter returns non-zero exit code even though
-  # the execution doesn't really ends up in an error.
-  # So it's necessary to put 'true' to force the exit
-  # code to zero so the script execution doesn't stop
-  # halfway.
-  rkhunter --check --skip-keypress || true
-fi
-
 # reboot the system
 if [ $REBOOT_ON_DONE -eq 1 ]; then
   reboot

@@ -319,6 +319,5 @@ run cron.sh
 run shell-profile.sh
 run system-files.sh
 run su.sh
-run rkhunter.sh
 run auditd.sh
 run cleanup.sh
