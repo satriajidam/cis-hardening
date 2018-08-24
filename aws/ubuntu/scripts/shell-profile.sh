@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 
 ########################################################################
-# Script  : Configure default bashrc & profile.
+# Script  : Configure default shell profile.
 # OSs     : - Ubuntu 16.04
 # Authors : - Agastyo Satriaji Idam (play.satriajidam@gmail.com)
-#           - Nashihun Amien (nashihunamien@gmail.com)
 ########################################################################
 
 set -o errexit # make script exits when a command fails
@@ -18,29 +17,32 @@ if [ "$(id -u)" != "0" ]; then
   exit $?
 fi
 
-begin_msg "Configuring default bashrc & profile..."
+begin_msg 'Configuring default shell profile...'
 
 if [ -f /etc/init.d/rc ]; then
-  sed -i.bak 's/umask 022/umask 027/g' /etc/init.d/rc
+  sed -i 's/umask 022/umask 027/g' /etc/init.d/rc
 fi
 
-print_content "/etc/init.d/rc"
+print_content '/etc/init.d/rc'
 
-cp -vf /etc/profile /etc/profile.bak
-cp -vf $(get_config_dir)/profile /etc/profile
+# set default umask & shell timeout
+append_to_file -Fx 'umask 027' /etc/profile
+append_to_file -Fx 'TMOUT=600' /etc/profile
 
-print_content "/etc/profile"
+print_content '/etc/profile'
 
+# set default umask & shell timeout
+append_to_file -Fx 'umask 027' /etc/bash.bashrc
+append_to_file -Fx 'TMOUT=600' /etc/bash.bashrc
+
+print_content '/etc/bash.bashrc'
+
+# set umask for other profiles
 for file in $(ls /etc/profile.d/*.sh); do
   grep 'umask' $file > /dev/null 2>&1 && err=$? || err=$?
   if [ $err -eq 0 ]; then
-    sed -i.bak 's/^umask.*/umask 027/g' $file
+    sed -i 's/^umask.*/umask 027/g' $file
   fi
 done
 
-cp -vf /etc/bash.bashrc /etc/bash.bashrc.bak
-cp -vf $(get_config_dir)/bash.bashrc /etc/bash.bashrc
-
-print_content "/etc/bash.bashrc"
-
-success_msg "Default bashrc & profile configured!"
+success_msg 'Default shell profile configured!'
