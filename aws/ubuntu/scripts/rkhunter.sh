@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 
 ########################################################################
-# Script  : Setup chkrootkit & rkhunter.
+# Script  : Setup rkhunter.
 # OSs     : - Ubuntu 16.04
 # Authors : - Agastyo Satriaji Idam (play.satriajidam@gmail.com)
-#           - Nashihun Amien (nashihunamien@gmail.com)
 ########################################################################
 
 set -o errexit # make script exits when a command fails
@@ -18,13 +17,13 @@ if [ "$(id -u)" != "0" ]; then
   exit $?
 fi
 
-begin_msg "Installing chkrootkit & rkhunter..."
+begin_msg 'Installing chkrootkit & rkhunter...'
 
-apt-get install -y chkrootkit rkhunter
+apt-get install -y rkhunter
 
-success_msg "chkrootkit & rkhunter installed!"
+success_msg 'chkrootkit & rkhunter installed!'
 
-begin_msg "Configuring rkhunter..."
+begin_msg 'Configuring rkhunter...'
 
 sed -i.bak \
   -e 's/^CRON_DAILY_RUN=.*/CRON_DAILY_RUN="yes"/' \
@@ -32,7 +31,7 @@ sed -i.bak \
   -e 's/^APT_AUTOGEN=.*/APT_AUTOGEN="yes"/' \
   /etc/default/rkhunter
 
-print_content "/etc/default/rkhunter"
+print_content '/etc/default/rkhunter'
 
 # Rkhunter returns non-zero exit code even though
 # the execution doesn't really ends up in an error.
@@ -42,4 +41,4 @@ print_content "/etc/default/rkhunter"
 rkhunter --update || true
 rkhunter --propupd || true
 
-success_msg "rkhunter configured!"
+success_msg 'rkhunter configured!'
