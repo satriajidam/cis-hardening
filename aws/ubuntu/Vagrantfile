@@ -17,9 +17,8 @@ Vagrant.configure('2') do |config|
       host.vm.box_check_update = true
       host.vm.hostname = node[:hostname]
       host.vm.network :private_network, ip: node[:ip], netmask: '255.255.255.0'
-      host.vm.provision 'shell', path: './vagrant-setup.sh'
-      host.vm.provision 'file', source: './', destination: '~/provisioner-kit'
       host.vm.provision 'file', source: './test_rsa.pub', destination: '~/.ssh/authorized_keys'
+      host.vm.provision 'shell', path: './vagrant-setup.sh'
 
       memory ||= 512
 
