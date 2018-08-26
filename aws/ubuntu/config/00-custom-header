@@ -18,7 +18,7 @@ read one five fifteen rest < /proc/loadavg
 echo ""
 echo "          _.-'~~~~~~'-._ "
 echo "         /      ||      \           This system is under the supervision of a Sith Lord."
-echo "        /       ||       \          Treat carefully or Lord Vader will force choke you!"
+echo "        /       ||       \          Treat carefully or share the same fate with the people of Alderaan!"
 echo "       |        ||        | "
 echo "       | _______||_______ |         `date +"%A, %e %B %Y, %r"`"
 echo "       |/ ----- \/ ----- \|         `uname -srmo`"
